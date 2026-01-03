@@ -11,24 +11,9 @@ This guide provides battle-tested reference architectures that combine AWS AI/ML
 ### 1. 🤖 **Intelligent Document Processing**
 *Tier 3 + Tier 2 Integration*
 
-```mermaid
-graph TD
-    A[Document Upload] --> B[S3 Bucket]
-    B --> C[Lambda Trigger]
-    C --> D[Textract]
-    D --> E[Comprehend]
-    E --> F[Bedrock Analysis]
-    F --> G[DynamoDB]
-    G --> H[API Response]
-    
-    I[CloudWatch] --> C
-    I --> D
-    I --> E
-    I --> F
-    
-    J[Step Functions] --> C
-    J --> K[Error Handling]
-```
+![Intelligent Document Processing Architecture](../assets/diagrams/document-processing-architecture.png)
+
+> **📋 Architecture Flow:** Document Upload → S3 → Lambda → Textract → Comprehend → Bedrock → DynamoDB → API Response
 
 **Components:**
 - **S3**: Document storage and versioning
@@ -83,26 +68,9 @@ def process_document(bucket, key):
 ### 2. 🛒 **E-commerce Recommendation Engine**
 *Tier 1 Custom ML + Tier 3 APIs*
 
-```mermaid
-graph TD
-    A[User Behavior] --> B[Kinesis Data Streams]
-    B --> C[SageMaker Feature Store]
-    C --> D[SageMaker Training]
-    D --> E[Model Registry]
-    E --> F[SageMaker Endpoint]
-    
-    G[Product Images] --> H[Rekognition]
-    H --> I[Visual Features]
-    I --> C
-    
-    J[User Reviews] --> K[Comprehend]
-    K --> L[Sentiment Features]
-    L --> C
-    
-    F --> M[Real-time Recommendations]
-    N[A/B Testing] --> F
-    O[Model Monitor] --> F
-```
+![E-commerce Recommendation Architecture](../assets/diagrams/ecommerce-recommendation-architecture.png)
+
+> **📊 Data Flow:** User Behavior + Product Images + Reviews → Feature Store → SageMaker Training → Real-time Recommendations
 
 **Components:**
 - **SageMaker**: Custom recommendation models
@@ -121,34 +89,9 @@ graph TD
 ### 3. 💬 **Enterprise AI Assistant**
 *Full Multi-Tier Integration*
 
-```mermaid
-graph TD
-    A[User Query] --> B[API Gateway]
-    B --> C[Lambda Router]
-    
-    C --> D{Query Type?}
-    D -->|Document Q&A| E[RAG Pipeline]
-    D -->|Image Analysis| F[Rekognition]
-    D -->|General Chat| G[Bedrock Direct]
-    D -->|Custom Domain| H[SageMaker Endpoint]
-    
-    E --> I[Vector Database]
-    I --> J[Bedrock + Context]
-    
-    F --> K[Vision Analysis]
-    G --> L[General Response]
-    H --> M[Domain Response]
-    
-    J --> N[Response Aggregator]
-    K --> N
-    L --> N
-    M --> N
-    
-    N --> O[Final Response]
-    
-    P[Knowledge Base] --> I
-    Q[Document Store] --> P
-```
+![Enterprise AI Assistant Architecture](../assets/diagrams/ai-assistant-architecture.png)
+
+> **🤖 Intelligence Routing:** Query → Router → [RAG Pipeline | Rekognition | Bedrock | SageMaker] → Aggregated Response
 
 **Architecture Highlights:**
 - **Intelligent Routing**: Directs queries to appropriate AI service
@@ -180,25 +123,9 @@ class AIAssistant:
 ### 4. 🏥 **Healthcare AI Platform**
 *Tier 1 Focus with Compliance*
 
-```mermaid
-graph TD
-    A[Medical Data] --> B[HIPAA VPC]
-    B --> C[Data Validation]
-    C --> D[SageMaker Processing]
-    D --> E[Feature Engineering]
-    E --> F[Model Training]
-    F --> G[Model Validation]
-    G --> H[Regulatory Review]
-    H --> I[Production Deployment]
-    
-    J[Audit Logs] --> K[CloudTrail]
-    L[Encryption] --> B
-    M[Access Control] --> B
-    
-    N[Model Monitor] --> I
-    O[Bias Detection] --> I
-    P[Explainability] --> I
-```
+![Healthcare AI Platform Architecture](../assets/diagrams/healthcare-ai-architecture.png)
+
+> **🔒 Compliance Pipeline:** Medical Data → HIPAA VPC → SageMaker → Validation → Regulatory Review → Secure Deployment
 
 **Compliance Features:**
 - **HIPAA Compliance**: Encrypted data, audit trails
@@ -210,25 +137,9 @@ graph TD
 ### 5. 🏭 **Manufacturing Predictive Maintenance**
 *IoT + Custom ML Integration*
 
-```mermaid
-graph TD
-    A[IoT Sensors] --> B[IoT Core]
-    B --> C[Kinesis Data Streams]
-    C --> D[Kinesis Analytics]
-    D --> E[Anomaly Detection]
-    
-    E --> F{Anomaly Detected?}
-    F -->|Yes| G[SNS Alert]
-    F -->|No| H[Normal Processing]
-    
-    C --> I[S3 Data Lake]
-    I --> J[SageMaker Training]
-    J --> K[Predictive Models]
-    K --> L[Maintenance Scheduling]
-    
-    M[Historical Data] --> I
-    N[Maintenance Records] --> I
-```
+![Manufacturing Predictive Maintenance Architecture](../assets/diagrams/manufacturing-predictive-maintenance.png)
+
+> **⚙️ IoT Pipeline:** Sensors → IoT Core → Kinesis → Analytics → [Anomaly Detection | Predictive Models] → Maintenance Actions
 
 **Key Components:**
 - **IoT Integration**: Real-time sensor data collection
@@ -240,81 +151,30 @@ graph TD
 ## 🔧 Implementation Patterns
 
 ### Pattern 1: Event-Driven Architecture
-```mermaid
-sequenceDiagram
-    participant User
-    participant API
-    participant Lambda
-    participant AI Service
-    participant Database
-    
-    User->>API: Request
-    API->>Lambda: Trigger
-    Lambda->>AI Service: Process
-    AI Service->>Lambda: Result
-    Lambda->>Database: Store
-    Lambda->>API: Response
-    API->>User: Final Result
-```
+
+![Event-Driven Architecture Pattern](../assets/diagrams/event-driven-pattern.png)
+
+> **🔄 Flow:** User → API → Lambda → AI Service → Database → Response
 
 ### Pattern 2: Batch Processing Pipeline
-```mermaid
-sequenceDiagram
-    participant Scheduler
-    participant Step Functions
-    participant SageMaker
-    participant S3
-    participant Notification
-    
-    Scheduler->>Step Functions: Trigger
-    Step Functions->>SageMaker: Start Job
-    SageMaker->>S3: Read Data
-    SageMaker->>S3: Write Results
-    SageMaker->>Step Functions: Complete
-    Step Functions->>Notification: Send Alert
-```
+
+![Batch Processing Pipeline Pattern](../assets/diagrams/batch-processing-pattern.png)
+
+> **📊 Sequence:** Scheduler → Step Functions → SageMaker → S3 → Notification
 
 ### Pattern 3: Real-time Inference
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Load Balancer
-    participant Endpoint
-    participant Model
-    participant Monitor
-    
-    Client->>Load Balancer: Request
-    Load Balancer->>Endpoint: Route
-    Endpoint->>Model: Inference
-    Model->>Endpoint: Prediction
-    Endpoint->>Monitor: Log Metrics
-    Endpoint->>Client: Response
-```
+
+![Real-time Inference Pattern](../assets/diagrams/realtime-inference-pattern.png)
+
+> **⚡ Real-time:** Client → Load Balancer → Endpoint → Model → Response (with monitoring)
 
 ## 🛡️ Security & Compliance Patterns
 
 ### Enterprise Security Architecture
-```mermaid
-graph TD
-    A[Internet] --> B[CloudFront]
-    B --> C[WAF]
-    C --> D[API Gateway]
-    D --> E[VPC]
-    
-    E --> F[Private Subnets]
-    F --> G[Lambda Functions]
-    F --> H[SageMaker Endpoints]
-    
-    I[IAM Roles] --> G
-    I --> H
-    
-    J[KMS Encryption] --> K[S3]
-    J --> L[RDS]
-    J --> M[SageMaker]
-    
-    N[CloudTrail] --> O[Audit Logs]
-    P[GuardDuty] --> Q[Threat Detection]
-```
+
+![Enterprise Security Architecture](../assets/diagrams/enterprise-security-architecture.png)
+
+> **🛡️ Security Layers:** Internet → CloudFront/WAF → API Gateway → VPC → Private Subnets (with IAM, KMS, CloudTrail)
 
 **Security Controls:**
 - **Network Isolation**: VPC with private subnets
@@ -326,20 +186,10 @@ graph TD
 ## 📊 Cost Optimization Patterns
 
 ### Multi-Tier Cost Optimization
-```mermaid
-graph TD
-    A[Cost Optimization] --> B[Tier Selection]
-    B --> C[Resource Sizing]
-    C --> D[Auto Scaling]
-    D --> E[Reserved Capacity]
-    E --> F[Spot Instances]
-    
-    G[Monitoring] --> H[Cost Alerts]
-    H --> I[Optimization Actions]
-    
-    J[Usage Patterns] --> K[Right-sizing]
-    K --> L[Service Migration]
-```
+
+![Cost Optimization Strategy](../assets/diagrams/cost-optimization-strategy.png)
+
+> **💰 Optimization Flow:** Tier Selection → Resource Sizing → Auto Scaling → Reserved/Spot Instances (with continuous monitoring)
 
 **Cost Strategies:**
 1. **Tier Optimization**: Use appropriate tier for each use case
@@ -351,21 +201,10 @@ graph TD
 ## 🚀 Deployment Patterns
 
 ### CI/CD for AI/ML
-```mermaid
-graph TD
-    A[Code Commit] --> B[CodePipeline]
-    B --> C[Model Training]
-    C --> D[Model Validation]
-    D --> E[A/B Testing]
-    E --> F[Production Deployment]
-    
-    G[Model Registry] --> D
-    H[Test Data] --> D
-    I[Performance Metrics] --> E
-    
-    J[Rollback] --> F
-    K[Monitoring] --> F
-```
+
+![AI/ML CI/CD Pipeline](../assets/diagrams/aiml-cicd-pipeline.png)
+
+> **🚀 Pipeline:** Code Commit → Training → Validation → A/B Testing → Production (with rollback capability)
 
 **Deployment Stages:**
 1. **Model Training**: Automated training pipeline
@@ -377,22 +216,10 @@ graph TD
 ## 📈 Monitoring & Observability
 
 ### Comprehensive Monitoring Stack
-```mermaid
-graph TD
-    A[Applications] --> B[CloudWatch Metrics]
-    A --> C[X-Ray Tracing]
-    A --> D[Custom Metrics]
-    
-    B --> E[Dashboards]
-    C --> F[Performance Analysis]
-    D --> G[Business Metrics]
-    
-    H[Alarms] --> I[SNS Notifications]
-    I --> J[Auto Remediation]
-    
-    K[Log Aggregation] --> L[CloudWatch Logs]
-    L --> M[Log Analysis]
-```
+
+![Monitoring and Observability Stack](../assets/diagrams/monitoring-observability-stack.png)
+
+> **📊 Monitoring:** Applications → [CloudWatch | X-Ray | Custom Metrics] → Dashboards/Analysis → Alerts/Remediation
 
 **Monitoring Components:**
 - **Performance Metrics**: Latency, throughput, errors
