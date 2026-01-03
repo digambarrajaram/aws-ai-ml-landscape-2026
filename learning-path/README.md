@@ -4,32 +4,17 @@
 
 ## 🗺️ Learning Journey Overview
 
-```mermaid
-graph TD
-    A[Start Here] --> B{Experience Level?}
-    B -->|Beginner| C[Tier 3: AI APIs]
-    B -->|Intermediate| D[Tier 2: Foundation Models]
-    B -->|Advanced| E[Tier 1: Custom ML]
-    
-    C --> F[Basic AI Concepts]
-    F --> G[AWS Fundamentals]
-    G --> H[API Integration]
-    H --> I[Production Deployment]
-    
-    D --> J[GenAI Fundamentals]
-    J --> K[Prompt Engineering]
-    K --> L[Model Customization]
-    L --> M[RAG Implementation]
-    
-    E --> N[ML Theory]
-    N --> O[SageMaker Mastery]
-    O --> P[MLOps Pipeline]
-    P --> Q[Advanced Optimization]
-    
-    I --> R[Cross-Tier Integration]
-    M --> R
-    Q --> R
-    R --> S[Production Mastery]
+```
+Start Here
+    ↓
+Experience Level?
+├─ Beginner → Tier 3: AI APIs → Basic AI Concepts → AWS Fundamentals → API Integration → Production Deployment
+├─ Intermediate → Tier 2: Foundation Models → GenAI Fundamentals → Prompt Engineering → Model Customization → RAG Implementation
+└─ Advanced → Tier 1: Custom ML → ML Theory → SageMaker Mastery → MLOps Pipeline → Advanced Optimization
+                                                                                                                    ↓
+                                                                                                        Cross-Tier Integration
+                                                                                                                    ↓
+                                                                                                            Production Mastery
 ```
 
 ## 🎯 Learning Paths by Experience Level
@@ -143,66 +128,33 @@ graph TD
 ## 🏗️ Architecture Learning Path
 
 ### Phase 1: Single-Tier Solutions
-```mermaid
-graph LR
-    A[User Request] --> B[Single Service]
-    B --> C[Response]
-    
-    subgraph "Examples"
-        D[Rekognition API]
-        E[Bedrock Chat]
-        F[SageMaker Endpoint]
-    end
+```
+User Request → Single Service → Response
+
+Examples:
+• Rekognition API
+• Bedrock Chat
+• SageMaker Endpoint
 ```
 
 ### Phase 2: Multi-Tier Integration
-```mermaid
-graph TD
-    A[Frontend] --> B[API Gateway]
-    B --> C[Lambda]
-    C --> D[Tier 3: Textract]
-    C --> E[Tier 2: Bedrock]
-    C --> F[Tier 1: SageMaker]
-    D --> G[S3 Storage]
-    E --> G
-    F --> G
+```
+Frontend → API Gateway → Lambda
+                            ├─ Tier 3: Textract
+                            ├─ Tier 2: Bedrock
+                            └─ Tier 1: SageMaker
+                                    ↓
+                                S3 Storage
 ```
 
 ### Phase 3: Enterprise Architecture
-```mermaid
-graph TB
-    subgraph "Data Layer"
-        A[S3 Data Lake]
-        B[Feature Store]
-        C[Vector DB]
-    end
-    
-    subgraph "Processing Layer"
-        D[SageMaker Training]
-        E[Bedrock Models]
-        F[AI APIs]
-    end
-    
-    subgraph "Serving Layer"
-        G[Real-time Inference]
-        H[Batch Processing]
-        I[API Gateway]
-    end
-    
-    subgraph "Monitoring Layer"
-        J[CloudWatch]
-        K[Model Monitor]
-        L[Cost Explorer]
-    end
-    
-    A --> D
-    B --> D
-    C --> E
-    D --> G
-    E --> G
-    F --> H
-    G --> I
-    H --> I
+```
+Data Layer:          Processing Layer:      Serving Layer:        Monitoring Layer:
+• S3 Data Lake       • SageMaker Training   • Real-time Inference  • CloudWatch
+• Feature Store      • Bedrock Models      • Batch Processing     • Model Monitor
+• Vector DB          • AI APIs             • API Gateway         • Cost Explorer
+        ↓                       ↓                       ↓
+    Processing → Serving → Monitoring
 ```
 
 ## 📚 Resource Library
@@ -229,16 +181,14 @@ graph TB
 
 ## 🎯 Certification Roadmap
 
-```mermaid
-graph TD
-    A[AWS Cloud Practitioner] --> B[AWS Solutions Architect Associate]
-    B --> C[AWS Machine Learning Specialty]
-    C --> D[AWS Data Analytics Specialty]
-    
-    E[Start Here] --> A
-    F[6 months experience] --> B
-    G[1 year ML experience] --> C
-    H[Advanced practitioner] --> D
+```
+Start Here → AWS Cloud Practitioner → AWS Solutions Architect Associate → AWS Machine Learning Specialty → AWS Data Analytics Specialty
+
+Timeline:
+• Start Here (0 months)
+• 6 months experience → Solutions Architect Associate
+• 1 year ML experience → Machine Learning Specialty
+• Advanced practitioner → Data Analytics Specialty
 ```
 
 ## 📈 Progress Tracking

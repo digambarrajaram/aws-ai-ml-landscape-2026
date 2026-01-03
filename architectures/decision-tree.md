@@ -4,27 +4,18 @@
 
 ## 🎯 Quick Decision Framework
 
-```mermaid
-flowchart TD
-    A[AI/ML Requirement] --> B{Do you have ML expertise?}
-    
-    B -->|No| C{Standard AI task?}
-    B -->|Yes| D{Need custom models?}
-    
-    C -->|Yes| E[Tier 3: AI APIs]
-    C -->|No| F[Consider Tier 2 first]
-    
-    D -->|No| G[Tier 2: Foundation Models]
-    D -->|Yes| H{Large dataset & resources?}
-    
-    H -->|Yes| I[Tier 1: Custom ML]
-    H -->|No| J[Start with Tier 2, evolve to Tier 1]
-    
-    E --> K[Rekognition, Textract, Comprehend]
-    F --> L[Bedrock, Q, CodeWhisperer]
-    G --> M[Bedrock + Fine-tuning]
-    I --> N[SageMaker Full Stack]
-    J --> O[Hybrid Approach]
+```
+AI/ML Requirement
+       ↓
+Do you have ML expertise?
+   ├─ No → Standard AI task?
+   │        ├─ Yes → Tier 3: AI APIs (Rekognition, Textract, Comprehend)
+   │        └─ No → Consider Tier 2 first (Bedrock, Q, CodeWhisperer)
+   └─ Yes → Need custom models?
+            ├─ No → Tier 2: Foundation Models (Bedrock + Fine-tuning)
+            └─ Yes → Large dataset & resources?
+                     ├─ Yes → Tier 1: Custom ML (SageMaker Full Stack)
+                     └─ No → Start with Tier 2, evolve to Tier 1 (Hybrid)
 ```
 
 ## 🔍 Detailed Decision Matrix
@@ -32,23 +23,20 @@ flowchart TD
 ### Use Case Categories
 
 #### 🖼️ **Computer Vision**
-```mermaid
-graph TD
-    A[Computer Vision Need] --> B{What type?}
-    
-    B -->|Object Detection| C{Custom objects?}
-    B -->|Face Analysis| D[Rekognition]
-    B -->|OCR/Document| E{Complex layouts?}
-    B -->|Medical Imaging| F[Custom SageMaker]
-    
-    C -->|Standard objects| G[Rekognition]
-    C -->|Custom objects| H{Large dataset?}
-    
-    E -->|Simple text| I[Textract]
-    E -->|Complex analysis| J[Textract + Bedrock]
-    
-    H -->|Yes| K[SageMaker + Custom Model]
-    H -->|No| L[Bedrock + Few-shot]
+```
+Computer Vision Need
+       ↓
+What type?
+├─ Object Detection → Custom objects?
+│                     ├─ Standard → Rekognition
+│                     └─ Custom → Large dataset?
+│                                 ├─ Yes → SageMaker + Custom Model
+│                                 └─ No → Bedrock + Few-shot
+├─ Face Analysis → Rekognition
+├─ OCR/Document → Complex layouts?
+│                 ├─ Simple → Textract
+│                 └─ Complex → Textract + Bedrock
+└─ Medical Imaging → Custom SageMaker
 ```
 
 **Decision Criteria:**
@@ -57,25 +45,22 @@ graph TD
 - **Tier 1 (SageMaker)**: Unique objects, medical imaging, high accuracy needs
 
 #### 💬 **Natural Language Processing**
-```mermaid
-graph TD
-    A[NLP Requirement] --> B{Task Type?}
-    
-    B -->|Sentiment Analysis| C{Standard domains?}
-    B -->|Text Generation| D[Bedrock]
-    B -->|Translation| E[Translate API]
-    B -->|Chatbot| F{Complexity level?}
-    B -->|Document Analysis| G{Structured docs?}
-    
-    C -->|Yes| H[Comprehend]
-    C -->|No| I[Bedrock + Custom]
-    
-    F -->|Simple Q&A| J[Bedrock + RAG]
-    F -->|Complex reasoning| K[Bedrock + Fine-tuning]
-    F -->|Domain-specific| L[SageMaker Custom]
-    
-    G -->|Yes| M[Textract]
-    G -->|No| N[Bedrock + Comprehend]
+```
+NLP Requirement
+       ↓
+Task Type?
+├─ Sentiment Analysis → Standard domains?
+│                       ├─ Yes → Comprehend
+│                       └─ No → Bedrock + Custom
+├─ Text Generation → Bedrock
+├─ Translation → Translate API
+├─ Chatbot → Complexity level?
+│            ├─ Simple Q&A → Bedrock + RAG
+│            ├─ Complex reasoning → Bedrock + Fine-tuning
+│            └─ Domain-specific → SageMaker Custom
+└─ Document Analysis → Structured docs?
+                       ├─ Yes → Textract
+                       └─ No → Bedrock + Comprehend
 ```
 
 **Decision Criteria:**
@@ -84,44 +69,31 @@ graph TD
 - **Tier 1**: Domain-specific models, high-performance requirements
 
 #### 🎵 **Audio Processing**
-```mermaid
-graph TD
-    A[Audio Processing] --> B{Direction?}
-    
-    B -->|Speech to Text| C{Language support?}
-    B -->|Text to Speech| D{Voice quality?}
-    B -->|Audio Analysis| E[Custom SageMaker]
-    
-    C -->|Standard languages| F[Transcribe]
-    C -->|Custom/Rare languages| G[SageMaker Custom]
-    
-    D -->|Standard voices| H[Polly]
-    D -->|Custom voices| I[Polly Custom + SageMaker]
+```
+Audio Processing
+       ↓
+Direction?
+├─ Speech to Text → Language support?
+│                   ├─ Standard → Transcribe
+│                   └─ Custom/Rare → SageMaker Custom
+├─ Text to Speech → Voice quality?
+│                   ├─ Standard → Polly
+│                   └─ Custom → Polly Custom + SageMaker
+└─ Audio Analysis → Custom SageMaker
 ```
 
 ## 🏗️ Architecture Patterns
 
 ### Pattern 1: API-First (Tier 3)
-```mermaid
-graph LR
-    A[Client App] --> B[API Gateway]
-    B --> C[Lambda Function]
-    C --> D[AI Service API]
-    D --> E[Response]
-    
-    subgraph "AI Services"
-        F[Rekognition]
-        G[Textract]
-        H[Comprehend]
-        I[Polly]
-        J[Transcribe]
-    end
-    
-    D -.-> F
-    D -.-> G
-    D -.-> H
-    D -.-> I
-    D -.-> J
+```
+Client App → API Gateway → Lambda Function → AI Service API → Response
+                                              ↓
+                                    AI Services:
+                                    • Rekognition
+                                    • Textract  
+                                    • Comprehend
+                                    • Polly
+                                    • Transcribe
 ```
 
 **Best For:**
@@ -131,21 +103,15 @@ graph LR
 - Limited ML expertise
 
 ### Pattern 2: Foundation Model Hub (Tier 2)
-```mermaid
-graph TD
-    A[Application] --> B[Bedrock API]
-    B --> C{Model Selection}
-    
-    C --> D[Claude 3]
-    C --> E[Titan]
-    C --> F[Llama 2]
-    C --> G[Cohere]
-    
-    H[Knowledge Base] --> I[Vector Store]
-    I --> B
-    
-    J[Fine-tuning Data] --> K[Custom Model]
-    K --> B
+```
+Application → Bedrock API → Model Selection
+                              ├─ Claude 3
+                              ├─ Titan
+                              ├─ Llama 2
+                              └─ Cohere
+                              ↑
+Knowledge Base → Vector Store ┘
+Fine-tuning Data → Custom Model ┘
 ```
 
 **Best For:**
@@ -155,20 +121,14 @@ graph TD
 - Content generation
 
 ### Pattern 3: Custom ML Pipeline (Tier 1)
-```mermaid
-graph TD
-    A[Raw Data] --> B[SageMaker Processing]
-    B --> C[Feature Store]
-    C --> D[SageMaker Training]
-    D --> E[Model Registry]
-    E --> F[SageMaker Endpoints]
-    
-    G[SageMaker Pipelines] --> B
-    G --> D
-    G --> H[Model Monitor]
-    
-    I[Data Scientists] --> J[SageMaker Studio]
-    J --> G
+```
+Raw Data → SageMaker Processing → Feature Store → SageMaker Training
+                                                        ↓
+Data Scientists → SageMaker Studio → SageMaker Pipelines → Model Registry
+                                                              ↓
+                                                    SageMaker Endpoints
+                                                              ↓
+                                                      Model Monitor
 ```
 
 **Best For:**
@@ -178,23 +138,13 @@ graph TD
 - Performance optimization
 
 ### Pattern 4: Hybrid Multi-Tier
-```mermaid
-graph TD
-    A[User Request] --> B[API Gateway]
-    B --> C[Lambda Orchestrator]
-    
-    C --> D[Tier 3: Document Processing]
-    C --> E[Tier 2: Content Analysis]
-    C --> F[Tier 1: Custom Classification]
-    
-    D --> G[Textract]
-    E --> H[Bedrock]
-    F --> I[SageMaker Endpoint]
-    
-    G --> J[Results Aggregator]
-    H --> J
-    I --> J
-    J --> K[Final Response]
+```
+User Request → API Gateway → Lambda Orchestrator
+                                    ├─ Tier 3: Document Processing → Textract
+                                    ├─ Tier 2: Content Analysis → Bedrock
+                                    └─ Tier 1: Custom Classification → SageMaker
+                                                    ↓
+                                            Results Aggregator → Final Response
 ```
 
 **Best For:**
@@ -214,50 +164,42 @@ graph TD
 | **Tier 1** | High | Compute + Storage | Economies of scale | High volume |
 
 ### Cost Optimization Decision Tree
-```mermaid
-graph TD
-    A[Cost Optimization] --> B{Usage Pattern?}
-    
-    B -->|Sporadic| C[Tier 3 APIs]
-    B -->|Steady| D{Volume level?}
-    B -->|Burst| E[Tier 2 + Auto-scaling]
-    
-    D -->|Low-Medium| F[Tier 2 Foundation Models]
-    D -->|High| G{Custom requirements?}
-    
-    G -->|Yes| H[Tier 1 Custom]
-    G -->|No| I[Tier 2 Optimized]
+```
+Cost Optimization
+       ↓
+Usage Pattern?
+├─ Sporadic → Tier 3 APIs
+├─ Steady → Volume level?
+│           ├─ Low-Medium → Tier 2 Foundation Models
+│           └─ High → Custom requirements?
+│                    ├─ Yes → Tier 1 Custom
+│                    └─ No → Tier 2 Optimized
+└─ Burst → Tier 2 + Auto-scaling
 ```
 
 ## 🚀 Performance Decision Framework
 
 ### Latency Requirements
-```mermaid
-graph TD
-    A[Latency Requirement] --> B{Response Time?}
-    
-    B -->|< 100ms| C[Tier 3 APIs + Edge]
-    B -->|< 1s| D[Tier 2 + Caching]
-    B -->|< 5s| E[Any Tier]
-    B -->|Batch OK| F[Tier 1 Batch Processing]
-    
-    C --> G[CloudFront + Regional APIs]
-    D --> H[Bedrock + ElastiCache]
-    E --> I[Standard Implementation]
-    F --> J[SageMaker Batch Transform]
+```
+Latency Requirement
+       ↓
+Response Time?
+├─ < 100ms → Tier 3 APIs + Edge → CloudFront + Regional APIs
+├─ < 1s → Tier 2 + Caching → Bedrock + ElastiCache
+├─ < 5s → Any Tier → Standard Implementation
+└─ Batch OK → Tier 1 Batch Processing → SageMaker Batch Transform
 ```
 
 ### Accuracy Requirements
-```mermaid
-graph TD
-    A[Accuracy Requirement] --> B{Accuracy Level?}
-    
-    B -->|Good Enough| C[Tier 3 APIs]
-    B -->|High| D{Domain-specific?}
-    B -->|Critical| E[Tier 1 Custom]
-    
-    D -->|Yes| F[Tier 1 + Domain Data]
-    D -->|No| G[Tier 2 + Fine-tuning]
+```
+Accuracy Requirement
+       ↓
+Accuracy Level?
+├─ Good Enough → Tier 3 APIs
+├─ High → Domain-specific?
+│         ├─ Yes → Tier 1 + Domain Data
+│         └─ No → Tier 2 + Fine-tuning
+└─ Critical → Tier 1 Custom
 ```
 
 ## 📊 Decision Scorecard
